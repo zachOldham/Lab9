@@ -103,8 +103,101 @@ public class Colosseum {
      *         <p>
      */
     public static Pokemon buildPokemon() {
-        Pokemon returnPokemon = null;
-        return returnPokemon;
+        Pokemon tempPokemon = null;
+        Scanner reader = myScan;
+        int inputInt = 0;
+        String inputStr = "";
+        // Get the type
+        while (true) {
+            System.out.println("Select from the following pokemon types:");
+            System.out.println("1 - Electric Pokemon");
+            System.out.println("2 - Fire Pokemon");
+            System.out.println("3 - Water Pokemon");
+            final int electric = 1;
+            final int fire = 2;
+            final int water = 3;
+            inputInt = reader.nextInt();
+            reader.nextLine();
+            if (inputInt == electric) {
+                tempPokemon = new ElectricPokemon();
+                break;
+            } else if (inputInt == fire) {
+                tempPokemon = new FirePokemon();
+                break;
+            } else if (inputInt == water) {
+                tempPokemon = new WaterPokemon();
+                break;
+            } else {
+                System.out.println("Sorry, you must pick either 1, 2 or 3.");
+            }
+        }
+        // Get the name
+        System.out.print("Please name your pokemon: ");
+        while (true) {
+            // Reset the buffer
+//            while (reader.hasNext()) {
+//                reader.next();
+//            }
+            inputStr = reader.nextLine();
+            if (inputStr.length() > 0) {
+                tempPokemon.setName(inputStr);
+                break;
+            } else {
+                System.out.print("Sorry. Name cannot be blank: ");
+            }
+        }
+        // Get the hp
+        System.out.print("How many hit points will it have? (1-50): ");
+        while (true) {
+            // Reset the buffer
+//            while (reader.hasNext()) {
+//                reader.next();
+//            }
+            inputInt = reader.nextInt();
+            reader.nextLine();
+            if (inputInt >= 1 && inputInt <= MAX_HIT_POINTS) {
+                tempPokemon.setHitPoints(inputInt);
+                break;
+            } else {
+                System.out.print("Sorry. Hit points must be between 1 and 50: ");
+            }
+        }
+        System.out.println("Split fifty points between attack level and defense level");
+        // Get the attack
+        System.out.print("Enter your attack level (1-49): ");
+        while (true) {
+            // Reset the buffer
+//            while (reader.hasNext()) {
+//                reader.next();
+//            }
+            inputInt = reader.nextInt();
+            reader.nextLine();
+            if (inputInt >= 1 && inputInt < MAX_HIT_POINTS) {
+                tempPokemon.setAttackLevel(inputInt);
+                break;
+            } else {
+                System.out.print("Sorry. Attack level must be between 1 and 49: ");
+            }
+        }
+     // Get the defense
+        System.out.print("Enter your defense level (1-"
+     + (MAX_HIT_POINTS - tempPokemon.getAttackLevel()) + "): ");
+        while (true) {
+            // Reset the buffer
+//            while (reader.hasNext()) {
+//                reader.next();
+//            }
+            inputInt = reader.nextInt();
+            reader.nextLine();
+            if (inputInt >= 1 && inputInt <= (MAX_HIT_POINTS - tempPokemon.getAttackLevel())) {
+                tempPokemon.setDefenseLevel(inputInt);
+                break;
+            } else {
+                System.out.print("Sorry. Defense level must be between 1 and "
+            + (MAX_HIT_POINTS - tempPokemon.getAttackLevel()) + ": ");
+            }
+        }
+        return tempPokemon;
     }
 
     /**

@@ -21,6 +21,7 @@ public class FirePokemon extends Pokemon {
      * FirePokemon's specialty attack is FLAME THROWER
      */
     public FirePokemon() {
+        super();
         pokeType = PokemonType.FIRE;
         specialtyAttack = "FLAME THROWER";
         specialtyProbability = specProb;
@@ -58,6 +59,19 @@ public class FirePokemon extends Pokemon {
      * Implement this.
      */
     public boolean attack(final Pokemon opponent) {
+        if (super.attack(opponent)) {
+            return true;
+        }
+        //Game is not over, continue to try to do a specialty attack
+        if (Math.random() < specialtyProbability) {
+            //Do the special
+            System.out.println(getName() + " executes a specialty attack... " + specialtyAttack
+                    + "!!!");
+            opponent.setHitPoints(0);
+            System.out.println(opponent.getName() + " has been defeated!");
+            return true;
+        }
+        //Don't do the special
         return false;
     }
 
